@@ -51,6 +51,8 @@ body::after {
     z-index: 1;
 }
 
+.center { text-align: center; }
+
 .fade { animation: fadeIn 0.4s ease; }
 
 @keyframes fadeIn {
@@ -92,8 +94,6 @@ button {
 
 button:hover { background:#005ea6; }
 
-.checkbox { margin-top: 10px; font-size: 13px; }
-
 .loader {
     width: 40px;
     height: 40px;
@@ -107,7 +107,6 @@ button:hover { background:#005ea6; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 .hidden { display: none; }
-.center { text-align: center; }
 
 .warning {
     color: red;
@@ -116,12 +115,14 @@ button:hover { background:#005ea6; }
     margin-top: 20px;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="card">
+
+<!-- TEMPORIZADOR -->
+<div id="timer" class="center">Tiempo restante: 02:00</div>
 
 <!-- PASO 1 -->
 <div id="step1" class="fade">
@@ -144,11 +145,6 @@ button:hover { background:#005ea6; }
 
     <input type="password" id="pass" placeholder="Contraseña">
 
-    <div class="checkbox">
-        <input type="checkbox" id="recordar">
-        <label for="recordar">Mantener la sesión iniciada</label>
-    </div>
-
     <button onclick="verificar()">Iniciar sesión</button>
 </div>
 
@@ -169,6 +165,29 @@ button:hover { background:#005ea6; }
 </div>
 
 <script>
+let tiempo = 120;
+let intervalo;
+
+function iniciarTimer() {
+    intervalo = setInterval(() => {
+        tiempo--;
+
+        let minutos = Math.floor(tiempo / 60);
+        let segundos = tiempo % 60;
+
+        document.getElementById("timer").innerText =
+            "Tiempo restante: " +
+            String(minutos).padStart(2, '0') + ":" +
+            String(segundos).padStart(2, '0');
+
+        // REINICIO AUTOMÁTICO
+        if (tiempo <= 0) {
+            tiempo = 120; // vuelve a 2 minutos
+        }
+
+    }, 1000);
+}
+
 function cambiar(pasoOcultar, pasoMostrar) {
     document.getElementById(pasoOcultar).classList.add("hidden");
     let el = document.getElementById(pasoMostrar);
@@ -181,41 +200,17 @@ function nextStep() {
     if(correo === "") return;
 
     document.getElementById("correoTxt").innerText = correo;
-
-    // Evento: correo ingresado
-    enviarEvento("correo_ingresado", correo);
+    iniciarTimer();
 
     cambiar("step1", "step2");
 }
 
 function verificar() {
-    let correo = document.getElementById("correo").value;
-    let intento = document.getElementById("pass").value !== "";
-
     cambiar("step2", "loading");
-
-    // Evento: intento login (sin guardar contraseña)
-    enviarEvento("intento_login", correo, intento);
 
     setTimeout(() => {
         cambiar("loading", "final");
     }, 2000);
-}
-
-function enviarEvento(tipo, correo, intento = false) {
-    fetch("http://localhost:3000/registro", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            correo: correo,
-            evento: tipo,
-            intento_password: intento,
-            fecha: new Date().toISOString(),
-            navegador: navigator.userAgent
-        })
-    }).catch(e => console.log(e));
 }
 </script>
 
