@@ -190,15 +190,55 @@ button:hover{
 </div>
 
 <!-- FINAL -->
+
 <div id="final" class="hidden center">
-    <h3>✅ Simulación completada</h3>
-    <p style="font-size:13px;color:#666">
-    Señales de alerta:<br>
-    - Página solicitó credenciales<br>
-    - No verificaste URL<br>
-    - Uso de urgencia (timer)
-    </p>
+
+    <div class="security-box"> 
+
+<div style="color:#d13438; font-weight:600; font-family:'Segoe UI', Arial, sans-serif;">
+    🚨 Incidente de seguridad detectado
 </div>
+
+       
+<div class="security-body">
+
+    <p class="impact">
+        Se detectaron acciones que indican que su cuenta podría haber sido comprometida.
+    </p>
+
+    <p class="detalle">
+        Se ingresaron credenciales en un entorno no verificado.  
+        En un escenario real, esto habría permitido el acceso no autorizado a su cuenta.
+    </p>
+
+    <!-- BARRA DE RIESGO -->
+    <div class="risk-container">
+        <div class="risk-label">Nivel de riesgo</div>
+
+        <div class="risk-bar">
+            <div class="risk-fill"></div>
+        </div>
+
+        <div class="risk-text">ALTO</div>
+    </div>
+
+    <!-- DETALLE -->
+    <div class="lista">
+        <b>Factores detectados:</b><br>
+        • Ingreso de credenciales<br>
+        • No verificación del dominio<br>
+        • Respuesta a mensaje de urgencia<br>
+        • Simulación de “cuenta comprometida”
+    </div>
+
+    <p class="recomendacion">
+        🔐 Recomendación: Verifique siempre la legitimidad del sitio antes de ingresar información sensible.
+    </p>
+
+</div>
+
+
+    </div>
 
 </div>
 
