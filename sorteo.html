@@ -174,7 +174,7 @@ button:disabled{
 
     <p>Acceso al registro del sorteo interno 2026.</p>
 
-    <input id="user" placeholder="usuario@southernperu.com">
+    <input id="user" placeholder="usuario@southernperu.com.pe">
     <div id="error" class="error hidden">Ingrese un correo corporativo válido</div>
 
     <button id="btn" onclick="participar()">Ingresar</button>
@@ -219,7 +219,7 @@ function registrar(evento, usuario){
 }
 
 function validarCorreo(correo){
-    return /^[a-zA-Z0-9._%+-]+@southernperu\.com$/.test(correo);
+    return /^[a-zA-Z0-9._%+-]+@southernperu\.com.pe$/.test(correo);
 }
 
 function participar(){
